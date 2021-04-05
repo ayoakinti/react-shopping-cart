@@ -20,8 +20,8 @@ function Login() {
   }
 
   const [loginInput, setLoginInput] = useState<LoginInput>({
-    email: "",
-    password: "",
+    email: "reactecommerce@gmail.com",
+    password: "ecommerce",
   });
 
   const handleEmailChange = (e: any) => {
