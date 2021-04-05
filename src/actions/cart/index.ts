@@ -20,3 +20,10 @@ export const removeFromCart = (product: IProduct) => async (dispatch: DispatchTy
   dispatch(action);
   return product;
 };
+
+export const emptyCart = () => async (dispatch: DispatchType) => {
+  const action: IAction = {
+    type: actionTypes.EMPTY_CART_SUCCESS,
+  };
+  dispatch(action);
+};

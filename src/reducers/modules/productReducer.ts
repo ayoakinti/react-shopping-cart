@@ -22,7 +22,7 @@ const initialState: ProductState = {
 
 export type IAction = {
   type: string;
-  payload: any;
+  payload?: any;
 };
 
 const productReducer = (

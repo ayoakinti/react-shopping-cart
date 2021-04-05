@@ -1,12 +1,17 @@
 import { PaystackButton } from "react-paystack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { emptyCart } from "../actions/cart";
 import { AppState } from "../reducers/rootReducer";
+require("dotenv").config();
 
 type IPaystackProps = {
     amount: number
 }
 
 const PaystackGateway = ({ amount }: IPaystackProps) => {
+
+  const dispatch = useDispatch();
+
   type IPayStackConfig = {
     reference: string;
     email: string;
@@ -31,12 +36,13 @@ const PaystackGateway = ({ amount }: IPaystackProps) => {
     reference: `${Math.floor((Math.random() * 1000000000) + 1)}`,
     email: user.email,
     amount: amount*100,
-    publicKey: "pk_test_5c662581199ab2042651f0cb6f6b56f1c3805822",
+    // Use your paystack key here
+    publicKey: process.env.REACT_APP_PAYSTACK_KEY as string,
   };
 
   const handlePaystackSuccessAction = (reference: string) => {
     // Implementation for whatever you want to do with reference and after success call.
-    return reference;
+    dispatch(emptyCart())
   };
 
   // you can call this function anything

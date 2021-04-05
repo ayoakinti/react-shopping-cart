@@ -21,7 +21,7 @@ const CartReducer = (
       if (addedProductIndex !== -1) {
         state.cart[addedProductIndex].amount++;
         return {
-            ...state
+          ...state,
         };
       }
       return {
@@ -35,15 +35,17 @@ const CartReducer = (
       if (state.cart[removedProductIndex].amount > 1) {
         state.cart[removedProductIndex].amount--;
         return {
-            ...state
+          ...state,
         };
       }
       state.cart.splice(removedProductIndex, 1);
       return {
-          ...state
+        ...state,
       };
-      case actionTypes.LOGOUT_SUCCESS:
-        return initialState
+    case actionTypes.EMPTY_CART_SUCCESS:
+      return initialState;
+    case actionTypes.LOGOUT_SUCCESS:
+      return initialState;
   }
   return state;
 };
