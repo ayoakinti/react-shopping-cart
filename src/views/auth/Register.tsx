@@ -1,12 +1,38 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 function Register() {
-  const handleRegister = () => {
-    console.log("Registered");
+  const [message, setMessage] = useState<string>("");
+
+  const closeToast = () => {
+    setMessage("");
+  };
+
+  const handleRegister = (e: React.SyntheticEvent<EventTarget>) => {
+    e.preventDefault();
+    setMessage(
+      "Cool! Now we have established that this works. \nKindly go back to the Login page to login."
+    );
   };
   return (
     <div className="auth-container">
+      {message && (
+        <div className="toast bg-info">
+          <div className="row align-items-center">
+            <div className="col-10 overflow-x-hidden">{message}</div>
+            <div className="col-2">
+              <FontAwesomeIcon
+                onClick={closeToast}
+                className="ml-2 cursor-pointer"
+                icon={faTimes}
+              />
+            </div>
+          </div>
+        </div>
+      )}
       <div className="container">
         <div className="row justify-content-center align-items-center">
           <div className="col-lg-6">

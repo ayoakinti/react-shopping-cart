@@ -49,7 +49,7 @@ function Login() {
       await dispatch(login(loginInput));
       history.push("/");
     } catch (error) {
-      setMessage(error.response.data.message);
+      setMessage('Invalid email/password. \nKindly login with: \nemail: reactecommerce@gmail.com \npassword: ecommerce');
       setLoading(false);
     }
   };
@@ -59,12 +59,16 @@ function Login() {
       {loading && <Loader />}
       {message && (
         <div className="toast">
-          {message}
-          <FontAwesomeIcon
-            onClick={closeToast}
-            className="ml-2 cursor-pointer"
-            icon={faTimes}
-          />
+          <div className="row align-items-center">
+            <div className="col-10 overflow-x-hidden">{message}</div>
+            <div className="col-2">
+              <FontAwesomeIcon
+                onClick={closeToast}
+                className="ml-2 cursor-pointer"
+                icon={faTimes}
+              />
+            </div>
+          </div>
         </div>
       )}
       <div className="container">

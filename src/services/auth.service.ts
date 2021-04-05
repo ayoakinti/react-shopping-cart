@@ -1,6 +1,7 @@
-import api from "../api";
+// import { IData } from "./../actions/auth/index";
+// import api from "../api";
 
-const API_URL = "login"; // Put your login api here
+// const API_URL = "login"; // Put your login api here
 
 interface LoginInput {
   email: string;
@@ -8,11 +9,22 @@ interface LoginInput {
 }
 
 const login = async (loginInput: LoginInput) => {
-  const res = await api.post(`${API_URL}`, loginInput);
-  if (res.data.token) {
-    localStorage.setItem("token", res.data.token);
+  // const res = await api.post(`${API_URL}`, loginInput);
+  if (
+    loginInput.email === "reactecommerce@gmail.com" &&
+    loginInput.password === "ecommerce"
+  ) {
+    localStorage.setItem("token", "Token authorized");
+    const data: any = {
+      token: "Token authorized",
+      user: {
+        firstName: "React",
+        lastName: "Tester",
+        email: "reactecommerce@gmail.com",
+      },
+    };
+    return data;
   }
-  return res.data;
 };
 
 const logout = () => {
@@ -21,7 +33,7 @@ const logout = () => {
 
 const AuthService = {
   login,
-  logout
+  logout,
 };
 
 export default AuthService;

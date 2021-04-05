@@ -8,13 +8,13 @@ interface LoginInput {
 
 type AuthAction = {
   type: string;
-  payload ?: IData;
+  payload ?: any;
 };
 
-type IData = {
-  user: object;
-  token: string;
-};
+// export type IData = {
+//   user: object;
+//   token: string;
+// };
 
 type DispatchType = (args: AuthAction) => AuthAction;
 

@@ -1,13 +1,13 @@
 import * as actionTypes from "../types";
 import ProductService from "../../services/product.service";
 
-import { ProductAction } from "../../reducers/modules/productReducer";
+import { IAction } from "../../reducers/modules/productReducer";
 
-type DispatchType = (args: ProductAction) => ProductAction;
+export type DispatchType = (args: IAction) => IAction;
 
 export const fetchAllProducts = () => async (dispatch: DispatchType) => {
   const data = await ProductService.fetchAllProducts();
-  const action: ProductAction = {
+  const action: IAction = {
     type: actionTypes.FETCH_ALL_PRODUCTS_SUCCESS,
     payload: data,
   };

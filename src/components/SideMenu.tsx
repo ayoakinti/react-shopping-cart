@@ -35,6 +35,11 @@ function SideMenu({ mobileSideMenu, closeSideMenuContainer }: IProps) {
               </NavLink>
             </li>
             <li className="sidebar-item" onClick={closeSideMenu}>
+              <NavLink className="sidebar-link" to="/categories">
+                <span className="">Categories</span>
+              </NavLink>
+            </li>
+            <li className="sidebar-item" onClick={closeSideMenu}>
               <NavLink className="sidebar-link" to="/settings">
                 <span className="">Settings</span>
               </NavLink>

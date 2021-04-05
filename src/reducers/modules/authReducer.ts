@@ -1,12 +1,12 @@
 import * as actionTypes from "../../actions/types";
 
-type IUser = {
+export type IUser = {
   firstName: string;
   lastName: string;
   email: string;
 };
 
-type AuthState = {
+export type AuthState = {
   token: string | null;
   user: IUser | null;
   isLoggedIn: boolean;
@@ -38,12 +38,7 @@ const authReducer = (state: AuthState = initialState, action: AuthAction) => {
         isLoggedIn: true,
       };
     case actionTypes.LOGOUT_SUCCESS:
-      return {
-        ...state,
-        token: null,
-        user: null,
-        isLoggedIn: false
-      }
+      return initialState
   }
   return state;
 };

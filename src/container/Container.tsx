@@ -1,6 +1,8 @@
 import Header from "../components/Header";
 import SideMenu from "../components/SideMenu";
-import Products from "../views/Products";
+import Products from "../views/products/Products";
+import Categories from "../views/categories/Categories";
+import CategoryProducts from "../views/categories/CategoryProducts";
 import Settings from "../views/settings/Settings";
 
 import {
@@ -31,6 +33,12 @@ function Container() {
           <Redirect exact from="/" to="/products" />
           <Route path="/products">
             <Products />
+          </Route>
+          <Route path="/categories/:category">
+            <CategoryProducts />
+          </Route>
+          <Route path="/categories">
+            <Categories />
           </Route>
           <Route path="/settings">
             <Settings />
