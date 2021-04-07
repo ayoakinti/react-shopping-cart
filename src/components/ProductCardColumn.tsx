@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart, faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import bag from "../assets/images/bag.png";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function ProductCardColumn() {
   const [showProductOptions, setShowProductOptions] = useState<boolean>(false);
@@ -28,7 +29,7 @@ function ProductCardColumn() {
               </li>
             </ul>
           </div>
-          <button className="w-100 btn btn-primary">Quick view</button>
+          <Link to='/products/product' className="w-100 btn btn-primary">Quick view</Link>
         </div>
       </div>
       <div className="px-1">

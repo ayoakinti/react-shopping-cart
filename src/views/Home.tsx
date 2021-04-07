@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import featured1 from "../assets/images/featured1.png";
 // import landing from "../assets/images/landing.svg";
 import featured2 from "../assets/images/featured2.png";
@@ -18,7 +19,7 @@ function Home() {
               <div className='px-1 text-center'>
                 <h3>Sale up to 50% off</h3>
                 <p>Online Shopping free home delivery over $100</p>
-                <button className="w-33 btn btn-primary">Shop Now</button>
+                <Link to='/categories' className="w-33 btn btn-primary">Shop Now</Link>
               </div>
             </div>
             <img src={featured2} alt="featured2" height="100%" />
