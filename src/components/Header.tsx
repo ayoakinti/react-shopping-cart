@@ -1,31 +1,36 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faBars,
+  faSearch,
+  faHeart,
+  faCartArrowDown,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Cart from "./Cart";
-import { CartState } from "../reducers/modules/cartReducer";
-import { AppState } from "../reducers/rootReducer";
-import { useSelector } from "react-redux";
-import { IProduct } from "../reducers/modules/productReducer";
+// import { CartState } from "../reducers/modules/cartReducer";
+// import { AppState } from "../reducers/rootReducer";
+// import { useSelector } from "react-redux";
+// import { IProduct } from "../reducers/modules/productReducer";
+import logo from "../assets/images/Fixxo..svg";
+import { NavLink } from "react-router-dom";
+// import NavBar from "./NavBar";
 
 function Header({ openSideMenuContainer }: any) {
-  const openSideMenu = () => {
-    openSideMenuContainer();
-  };
+  const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
+  // const { cart } = useSelector<AppState, CartState>((state) => state.cart);
 
-  const { cart } = useSelector<AppState, CartState>((state) => state.cart);
-
-  const totalCartAmount = (items: IProduct[]) => {
-    return items.reduce(
-      (accumulator: number, item) => accumulator + item.amount,
-      0
-    );
-  };
+  // const totalCartAmount = (items: IProduct[]) => {
+  //   return items.reduce(
+  //     (accumulator: number, item) => accumulator + item.amount,
+  //     0
+  //   );
+  // };
 
   const [cartOpen, setCartOpen] = useState<boolean>(false);
 
-  const toggleCart = () => {
-    setCartOpen(!cartOpen);
-  };
+  // const toggleCart = () => {
+  //   setCartOpen(!cartOpen);
+  // };
 
   return (
     <div className="">
@@ -33,20 +38,55 @@ function Header({ openSideMenuContainer }: any) {
         <div className="w-100 d-flex justify-content-between">
           <div className="d-flex align-items-center">
             <FontAwesomeIcon
-              onClick={openSideMenu}
-              className="menu-icon mr-2"
               icon={faBars}
-              size="2x"
+              size="lg"
+              className="mr-2 sidemenu-icon"
+              onClick={() => setOpenSideMenu(true)}
             />
-            <span className="font-20">E-commerce Site</span>
+            <img src={logo} alt="logo" />
+            {/* <NavBar /> */}
+            <div
+              className={`mobile-sidemenu-mask ${openSideMenu ? "show" : ""}`}
+              onClick={() => setOpenSideMenu(false)}
+            ></div>
+            <nav className={`sidemenu ml-3 ${openSideMenu ? "show" : ""}`}>
+              <ul>
+                <li onClick={() => setOpenSideMenu(false)}>
+                  <NavLink exact={true} to="/">
+                    Home
+                  </NavLink>
+                </li>
+                <li onClick={() => setOpenSideMenu(false)}>
+                  <NavLink to="/categories">Categories</NavLink>
+                </li>
+                <li onClick={() => setOpenSideMenu(false)}>
+                  <NavLink to="/brands">Brands</NavLink>
+                </li>
+                <li onClick={() => setOpenSideMenu(false)}>
+                  <NavLink to="/products/product">Products</NavLink>
+                </li>
+              </ul>
+            </nav>
           </div>
-          <div
-            className="position-relative cursor-pointer"
-            onClick={toggleCart}
-          >
-            <FontAwesomeIcon icon={faCartPlus} size="2x" />
-            <div className="cart-notification">{totalCartAmount(cart)}</div>
-          </div>
+          <nav>
+            <ul className="d-flex align-items-center">
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+              {/* <li>
+                <NavLink to="/cart">Cart</NavLink>
+              </li> */}
+              <li className="nav-icons">
+                <FontAwesomeIcon icon={faSearch} />
+              </li>
+              <li className="nav-icons">
+                <FontAwesomeIcon icon={faHeart} />
+              </li>
+              <li className="nav-icons">
+                <FontAwesomeIcon icon={faCartArrowDown} />
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
       {cartOpen && (

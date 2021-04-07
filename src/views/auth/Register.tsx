@@ -35,7 +35,7 @@ function Register() {
       )}
       <div className="container">
         <div className="row justify-content-center align-items-center">
-          <div className="col-lg-6">
+          <div className="col-lg-6 d-flex justify-content-center">
             <div className="auth-content">
               <div className="auth-header">
                 <div>

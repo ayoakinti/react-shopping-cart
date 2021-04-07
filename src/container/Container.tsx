@@ -4,12 +4,13 @@ import Products from "../views/products/Products";
 import Categories from "../views/categories/Categories";
 import CategoryProducts from "../views/categories/CategoryProducts";
 import Settings from "../views/settings/Settings";
+import Home from "../views/Home"
 
 import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
+  // Redirect,
 } from "react-router-dom";
 import { useState } from "react";
 
@@ -30,7 +31,10 @@ function Container() {
         <SideMenu mobileSideMenu={mobileSideMenu} closeSideMenuContainer={closeSideMenuContainer} />
         <Header openSideMenuContainer={openSideMenuContainer} />
         <Switch>
-          <Redirect exact from="/" to="/products" />
+          {/* <Redirect exact from="/" to="/" /> */}
+          <Route path="/home">
+            <Home />
+          </Route>
           <Route path="/products">
             <Products />
           </Route>
