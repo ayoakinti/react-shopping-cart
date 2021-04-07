@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllCategories } from "../../actions/categories";
 import { CategoryState } from "../../reducers/modules/categoryReducer";
 import { AppState } from "../../reducers/rootReducer";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Loader from "../../components/Loader";
 import ProductCard from "../../components/ProductCard";
 
