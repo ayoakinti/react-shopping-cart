@@ -1,14 +1,21 @@
 import { IAction, IProduct } from "./productReducer";
 import * as actionTypes from "../../actions/types";
 
+type ICategory = {
+  _id: string;
+  name: string;
+};
+
 export type CategoryState = {
-  categories: string[];
-  singleCategory: IProduct[] | null;
+  categories: ICategory[];
+  brands: ICategory[];
+  singleCollection: IProduct[] | null;
 };
 
 const initialState: CategoryState = {
   categories: [],
-  singleCategory: null,
+  brands: [],
+  singleCollection: null,
 };
 
 const CategoryReducer = (
@@ -22,10 +29,22 @@ const CategoryReducer = (
         categories: action.payload,
       };
 
+    case actionTypes.FETCH_ALL_BRANDS_SUCCESS:
+      return {
+        ...state,
+        brands: action.payload,
+      };
+
     case actionTypes.FETCH_CUSTOM_CATEGORY_SUCCESS:
       return {
         ...state,
-        singleCategory: action.payload,
+        singleCollection: action.payload,
+      };
+
+    case actionTypes.FETCH_CUSTOM_BRAND_SUCCESS:
+      return {
+        ...state,
+        singleCollection: action.payload,
       };
     case actionTypes.LOGOUT_SUCCESS:
       return initialState;

@@ -22,11 +22,11 @@ function ProductItem({ product }: ProductItemProps) {
       <div className='h-85'>
         <img
           src={product.image}
-          alt={product.title}
+          alt={product.name}
           width="100%"
           height="240px"
         />
-        <h4 className='product-title'>{product.title}</h4>
+        <h4 className='product-title'>{product.name}</h4>
         <p><b>Price:</b> ₦{Math.round(product.price * 485).toLocaleString()}</p>
       </div>
       <button onClick={() => handleAddToCart(product)} className="auth-btn">

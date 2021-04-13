@@ -59,12 +59,12 @@ function Header({ openSideMenuContainer }: any) {
                 <li onClick={() => setOpenSideMenu(false)}>
                   <NavLink to="/categories">Categories</NavLink>
                 </li>
-                <li onClick={() => setOpenSideMenu(false)}>
+                {/* <li onClick={() => setOpenSideMenu(false)}>
                   <NavLink to="/brands">Brands</NavLink>
-                </li>
-                <li onClick={() => setOpenSideMenu(false)}>
+                </li> */}
+                {/* <li onClick={() => setOpenSideMenu(false)}>
                   <NavLink to="/products/product">Products</NavLink>
-                </li>
+                </li> */}
               </ul>
             </nav>
           </div>
@@ -73,17 +73,14 @@ function Header({ openSideMenuContainer }: any) {
               <li>
                 <NavLink to="/login">Login</NavLink>
               </li>
-              {/* <li>
-                <NavLink to="/cart">Cart</NavLink>
-              </li> */}
-              <li className="nav-icons">
+              {/* <li className="nav-icons">
                 <FontAwesomeIcon icon={faSearch} />
               </li>
               <li className="nav-icons">
                 <FontAwesomeIcon icon={faHeart} />
-              </li>
+              </li> */}
               <li className="nav-icons">
-                <FontAwesomeIcon icon={faCartArrowDown} />
+                <NavLink to='/cart'><FontAwesomeIcon icon={faCartArrowDown} /></NavLink>
               </li>
             </ul>
           </nav>

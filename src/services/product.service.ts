@@ -1,15 +1,20 @@
 import api from "../api";
 
-export const API_URL = "https://fakestoreapi.com"; // Put your login api here
-
 const fetchAllProducts = async () => {
-  const res = await api.get(`${API_URL}/products`);
+  const res = await api.get('/product');
+  
+  return res.data;
+};
+
+const fetchSingleProduct = async (productId: string) => {
+  const res = await api.get(`/product/single/${productId}`);
   
   return res.data;
 };
 
 const ProductService = {
   fetchAllProducts,
+  fetchSingleProduct
 };
 
 export default ProductService;

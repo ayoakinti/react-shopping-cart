@@ -14,12 +14,34 @@ export const fetchAllCategories = () => async (dispatch: DispatchType) => {
   return data;
 };
 
-export const fetchCustomCategories = (category: string) => async (
+export const fetchAllBrands = () => async (dispatch: DispatchType) => {
+  const data = await CategoryService.fetchAllBrands();
+  const action: IAction = {
+    type: actionTypes.FETCH_ALL_BRANDS_SUCCESS,
+    payload: data,
+  };
+  dispatch(action);
+  return data;
+};
+
+export const fetchCustomCategories = (categoryId: string) => async (
   dispatch: DispatchType
 ) => {
-  const data = await CategoryService.fetchCustomCategories(category);
+  const data = await CategoryService.fetchCustomCategories(categoryId);
   const action: IAction = {
     type: actionTypes.FETCH_CUSTOM_CATEGORY_SUCCESS,
+    payload: data,
+  };
+  dispatch(action);
+  return data;
+};
+
+export const fetchCustomBrands = (brandId: string) => async (
+  dispatch: DispatchType
+) => {
+  const data = await CategoryService.fetchCustomBrands(brandId);
+  const action: IAction = {
+    type: actionTypes.FETCH_CUSTOM_BRAND_SUCCESS,
     payload: data,
   };
   dispatch(action);

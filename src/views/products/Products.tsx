@@ -35,7 +35,7 @@ function Products() {
           <div className="row">
             {products &&
               products.map((product) => (
-                <div key={product.id} className="col-lg-3 col-xl-2 col-md-4">
+                <div key={product._id} className="col-lg-3 col-xl-2 col-md-4">
                   <ProductItem product={product} />
                 </div>
               ))}

@@ -6,7 +6,7 @@
 // import ProductItem from "../../components/ProductItem";
 // import Loader from "../../components/Loader";
 
-import ProductCard from "../../components/ProductCard";
+// import ProductCard from "../../components/ProductCard";
 
 function Brands() {
   //   const dispatch = useDispatch();
@@ -126,7 +126,7 @@ function Brands() {
                   </div>
                 </div>
               </div>
-              <div className="col-lg-9 col-md-8">
+              {/* <div className="col-lg-9 col-md-8">
                 <div className="row">
                   <div className="col-lg-4 col-md-6">
                     <ProductCard />
@@ -156,7 +156,7 @@ function Brands() {
                     <ProductCard />
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

@@ -16,7 +16,7 @@ const CartReducer = (
   switch (action.type) {
     case actionTypes.ADD_TO_CART_SUCCESS:
       let addedProductIndex = state.cart.findIndex(function (product) {
-        return product.id === action.payload.id;
+        return product._id === action.payload._id;
       });
       if (addedProductIndex !== -1) {
         state.cart[addedProductIndex].amount++;
@@ -30,7 +30,7 @@ const CartReducer = (
       };
     case actionTypes.REMOVE_FROM_CART_SUCCESS:
       let removedProductIndex = state.cart.findIndex(function (product) {
-        return product.id === action.payload.id;
+        return product._id === action.payload._id;
       });
       if (state.cart[removedProductIndex].amount > 1) {
         state.cart[removedProductIndex].amount--;

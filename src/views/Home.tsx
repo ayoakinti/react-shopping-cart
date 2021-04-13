@@ -4,7 +4,7 @@ import featured1 from "../assets/images/featured1.png";
 import featured2 from "../assets/images/featured2.png";
 import featured3 from "../assets/images/featured3.png";
 import featured4 from "../assets/images/featured4.png";
-import ProductCard from "../components/ProductCard";
+// import ProductCard from "../components/ProductCard";
 import ProductCardColumn from "../components/ProductCardColumn";
 import ServicesCard from "../components/ServicesCard";
 
@@ -17,7 +17,7 @@ function Home() {
             <img src={featured1} alt="featured1" height="100%" />
             <div className="landing-content d-flex align-items-center">
               <div className='px-1 text-center'>
-                <h3>Sale up to 50% off</h3>
+                <h3>Sale up <br/> to 50% off</h3>
                 <p>Online Shopping free home delivery over $100</p>
                 <Link to='/categories' className="w-33 btn btn-primary">Shop Now</Link>
               </div>
@@ -59,7 +59,7 @@ function Home() {
           <div className="row justify-content-center">
             <div className="col-lg-8">
               <div className="row">
-                <div className="col-md-3">
+                {/* <div className="col-md-3">
                   <ProductCard />
                 </div>
                 <div className="col-md-3">
@@ -82,7 +82,7 @@ function Home() {
                 </div>
                 <div className="col-md-3">
                   <ProductCard />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

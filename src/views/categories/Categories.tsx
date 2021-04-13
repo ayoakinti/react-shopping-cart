@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllCategories } from "../../actions/categories";
+import {
+  fetchAllBrands,
+  fetchAllCategories,
+  fetchCustomBrands,
+  fetchCustomCategories,
+} from "../../actions/categories";
 import { CategoryState } from "../../reducers/modules/categoryReducer";
 import { AppState } from "../../reducers/rootReducer";
 // import { Link } from "react-router-dom";
@@ -8,9 +13,10 @@ import Loader from "../../components/Loader";
 import ProductCard from "../../components/ProductCard";
 
 function Categories() {
-  const { categories } = useSelector<AppState, CategoryState>(
-    (state) => state.category
-  );
+  const { brands, categories, singleCollection } = useSelector<
+    AppState,
+    CategoryState
+  >((state) => state.category);
 
   const dispatch = useDispatch();
 
@@ -20,6 +26,8 @@ function Categories() {
     const fetchAPIs = async () => {
       try {
         await dispatch(fetchAllCategories());
+        await dispatch(fetchAllBrands());
+        await dispatch(fetchCustomCategories(categories[0]._id));
         setIsLoading(false);
       } catch (error) {
         console.error(error.response.data.message);
@@ -28,36 +36,23 @@ function Categories() {
     fetchAPIs();
   }, [dispatch]);
 
+  const sortByCategory = async (categoryId: any) => {
+    setIsLoading(true)
+    await dispatch(fetchCustomCategories(categoryId))
+    setIsLoading(false)
+  }
+
+  const sortByBrand = async (brandId: any) => {
+    setIsLoading(true)
+    await dispatch(fetchCustomBrands(brandId))
+    setIsLoading(false)
+  }
+
   return (
-    // <div>
-    //   {isLoading && <Loader />}
-    //   <div className="page-wrapper">
-    //     <div className="container-fluid">
-    //       <div className="row">
-    //         {categories &&
-    //           categories.map((category) => (
-    //             <div key={category} className="col-lg-3 col-md-6">
-    //               <Link to={`/categories/${category}`}>
-    //                 <div className="card text-capitalize font-20">{category}</div>
-    //               </Link>
-    //             </div>
-    //           ))}
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
     <div>
       {isLoading && <Loader />}
       <div className="page-wrapper">
         <div className="container-fluid">
-          {/* <div className="row">
-            {products &&
-              products.map((product) => (
-                <div key={product.id} className="col-lg-3 col-xl-2 col-md-4">
-                  <ProductItem product={product} />
-                </div>
-              ))}
-          </div> */}
           <div className="container-fixed my-4">
             <div className="row">
               <div className="col-lg-3 col-md-4">
@@ -72,16 +67,11 @@ function Categories() {
                     {categories &&
                       categories.map((category) => (
                         <div
-                          key={category}
+                          key={category._id}
                           className="d-flex align-items-center"
                         >
-                          <input
-                            type="checkbox"
-                            name="categoryType"
-                            id="categoryType"
-                          />
-                          <label className="ml-1" htmlFor="categoryType">
-                            {category}
+                          <label onClick={() => sortByCategory(category._id)} htmlFor="categoryType">
+                            {category.name}
                           </label>
                         </div>
                       ))}
@@ -107,68 +97,34 @@ function Categories() {
                     className="mb-1 pb-1"
                     style={{ borderBottom: "1px solid #c4cad0" }}
                   >
-                    Color
+                    All Brands
                   </h4>
                   <div className="px-1">
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex align-items-center">
-                        <input type="checkbox" name="color" id="color" />
-                        <label className="ml-1" htmlFor="color">
-                          Black
-                        </label>
-                      </div>
-                      <div>3</div>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex align-items-center">
-                        <input type="checkbox" name="color" id="color" />
-                        <label className="ml-1" htmlFor="color">
-                          Blue
-                        </label>
-                      </div>
-                      <div>3</div>
-                    </div>
-                    <div className="d-flex justify-content-between">
-                      <div className="d-flex align-items-center">
-                        <input type="checkbox" name="color" id="color" />
-                        <label className="ml-1" htmlFor="color">
-                          Yellow
-                        </label>
-                      </div>
-                      <div>3</div>
-                    </div>
+                    {brands &&
+                      brands.map((brand) => (
+                        <div
+                          key={brand._id}
+                          className="d-flex align-items-center"
+                        >
+                          <label onClick={() => sortByBrand(brand._id)} htmlFor="brandType">
+                            {brand.name}
+                          </label>
+                        </div>
+                      ))}
                   </div>
                 </div>
               </div>
               <div className="col-lg-9 col-md-8">
                 <div className="row">
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
-                    <ProductCard />
-                  </div>
+                  {singleCollection ? (
+                    singleCollection?.map((product) => (
+                      <div key={product._id} className="col-lg-4 col-md-6">
+                        <ProductCard product={product} />
+                      </div>
+                    ))
+                  ) : (
+                    <div>No products for this collection</div>
+                  )}
                 </div>
               </div>
             </div>

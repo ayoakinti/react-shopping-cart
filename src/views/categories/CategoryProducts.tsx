@@ -8,7 +8,7 @@ import { useParams } from "react-router";
 import Loader from "../../components/Loader";
 
 function CategoryProducts() {
-  const { singleCategory } = useSelector<AppState, CategoryState>(
+  const { singleCollection } = useSelector<AppState, CategoryState>(
     (state) => state.category
   );
 
@@ -36,9 +36,9 @@ function CategoryProducts() {
       <div className="page-wrapper">
         <div className="container-fluid">
           <div className="row">
-            {singleCategory &&
-              singleCategory.map((product) => (
-                <div key={product.id} className="col-lg-3 col-md-6">
+            {singleCollection &&
+              singleCollection.map((product) => (
+                <div key={product._id} className="col-lg-3 col-md-6">
                   <div className="card">
                     <ProductItem product={product} />
                   </div>

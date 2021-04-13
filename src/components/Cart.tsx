@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { CartState } from "../reducers/modules/cartReducer";
 import { IProduct } from "../reducers/modules/productReducer";
 import { AppState } from "../reducers/rootReducer";
-import CartItem from "./CartItem";
+import CartItem from "./CartItemOld";
 import PaystackGateway from "./PayStackGateway";
 
 function Cart() {
@@ -20,7 +20,7 @@ function Cart() {
         <div>
           <div className="cart-items overflow-y-auto">
             {cart.map((product) => (
-              <div key={product.id}>
+              <div key={product._id}>
                 <CartItem product={product} />
               </div>
             ))}

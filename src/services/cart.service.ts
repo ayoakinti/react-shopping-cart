@@ -1,8 +1,7 @@
-import { API_URL } from './product.service';
 import api from "../api";
 
 const addToCart = async () => {
-  const res = await api.get(`${API_URL}/products/categories`);
+  const res = await api.get('/cart');
   
   return res.data;
 };

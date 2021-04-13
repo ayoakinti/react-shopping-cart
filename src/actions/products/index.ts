@@ -14,3 +14,13 @@ export const fetchAllProducts = () => async (dispatch: DispatchType) => {
   dispatch(action);
   return data;
 };
+
+export const fetchSingleProduct = (productId: string) => async (dispatch: DispatchType) => {
+  const data = await ProductService.fetchSingleProduct(productId);
+  const action: IAction = {
+    type: actionTypes.FETCH_SINGLE_PRODUCT_SUCCESS,
+    payload: data,
+  };
+  dispatch(action);
+  return data;
+};

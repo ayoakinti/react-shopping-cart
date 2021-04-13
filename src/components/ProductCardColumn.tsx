@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
+import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import bag from "../assets/images/bag.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -20,10 +20,10 @@ function ProductCardColumn() {
           }`}
         >
           <div className="d-flex justify-content-end" style={{ flex: "2" }}>
-            <ul className="d-flex flex-column justify-content-around p-1">
-              <li className="nav-icons">
+            <ul className="d-flex flex-column p-1">
+              {/* <li className="nav-icons">
                 <FontAwesomeIcon icon={faHeart} />
-              </li>
+              </li> */}
               <li className="nav-icons">
                 <FontAwesomeIcon icon={faCartArrowDown} />
               </li>

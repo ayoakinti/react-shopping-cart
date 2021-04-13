@@ -1,73 +1,32 @@
-import { useDispatch } from "react-redux";
-import { addToCart, removeFromCart } from "../actions/cart";
-import { IProduct } from "../reducers/modules/productReducer";
+import featured2 from "../assets/images/featured2.png";
 
-type CartItemProps = {
-  product: IProduct;
-};
-
-function CartItem({ product }: CartItemProps) {
-  const dispatch = useDispatch();
-
-  const handleRemoveFromCart = async (product: IProduct) => {
-    try {
-      await dispatch(removeFromCart(product));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const handleAddToCart = async (product: IProduct) => {
-    try {
-      await dispatch(addToCart(product));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+function CartItem() {
   return (
-    <div className="row cart-item">
-      <div className="col-9">
-        <h4>{product.title}</h4>
-        <div className="row">
-          <div className="col-3">
-            <button
-              onClick={() => handleRemoveFromCart(product)}
-              className="cart-button"
-            >
-              -
-            </button>
-          </div>
-          <div className="col-6 text-center">{product.amount}</div>
-          <div className="col-3">
-            <button
-              onClick={() => handleAddToCart(product)}
-              className="cart-button"
-            >
-              +
-            </button>
+    <div className="cart-item">
+      <div className="row">
+        <div className="col-md-6">
+          <div className="row align-items-center">
+            <div className="col-3">
+              <img src={featured2} alt="featured1" width="100%" height="80px" />
+            </div>
+            <div className="col-9">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim,
+              minima?
+            </div>
           </div>
         </div>
-        <div className="d-flex justify-content-between">
-          <div>
-            <p className="m-0">
-              <b>Price: </b>₦{Math.round(product.price * 485).toLocaleString()}
-            </p>
-          </div>
-          <div>
-            <p className="m-0">
-              <b>Total: </b>₦{Math.round(product.price * 485 * product.amount).toLocaleString()}
-            </p>
+        <div className="col-md-6">
+          <div className="row align-items-center h-100">
+            <div className="col-2">$30.00</div>
+            <div className="col-6 d-flex justify-content-center">
+              <button>-</button>
+              <div>2</div>
+              <button>+</button>
+            </div>
+            <div className="col-2">$30.00</div>
+            <div className="col-2 text-end">$30.00</div>
           </div>
         </div>
-      </div>
-      <div className="col-3">
-        <img
-          src={product.image}
-          alt={product.title}
-          width="100%"
-          height="100%"
-        />
       </div>
     </div>
   );

@@ -1,18 +1,34 @@
 import * as actionTypes from "../../actions/types";
 
+type IpriceList = {
+  color: string;
+  imageUrls: string[];
+  sizes: any;
+};
 export interface IProduct {
-  id: number;
-  title: string;
+  _id: string;
+  name: string;
   price: number;
-  category: string;
   description: string;
+  shipping: string;
   image: string;
   amount: number;
+  categoryId: string;
+  extras: string[];
+  priceList: IpriceList[];
+}
+
+type ISingleProduct = {
+  product: IProduct,
+  category: string;
+  brand: string;
+  seller: string;
+  reviews: any
 }
 
 export type ProductState = {
   products: IProduct[];
-  singleProduct: IProduct | null;
+  singleProduct: ISingleProduct | null;
 };
 
 const initialState: ProductState = {
@@ -34,6 +50,12 @@ const productReducer = (
       return {
         ...state,
         products: action.payload,
+      };
+
+    case actionTypes.FETCH_SINGLE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        singleProduct: action.payload,
       };
     case actionTypes.LOGOUT_SUCCESS:
       return initialState;
