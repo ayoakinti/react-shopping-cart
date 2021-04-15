@@ -14,6 +14,7 @@ export interface IProduct {
   image: string;
   amount: number;
   categoryId: string;
+  brandId: string;
   extras: string[];
   priceList: IpriceList[];
 }

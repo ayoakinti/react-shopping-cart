@@ -4,6 +4,7 @@ import * as actionTypes from "../../actions/types";
 export type ICategory = {
   _id: string;
   name: string;
+  image: string;
 };
 
 export type CategoryState = {

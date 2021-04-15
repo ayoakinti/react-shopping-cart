@@ -1,4 +1,4 @@
-import { IAction, IProduct } from "./productReducer";
+import { IAction } from "./productReducer";
 import * as actionTypes from "../../actions/types";
 
 export type ICart = {

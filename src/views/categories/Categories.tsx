@@ -22,6 +22,8 @@ function Categories() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const [categoryView, setCategoryView] = useState<boolean>(true);
+
   useEffect(() => {
     const fetchAPIs = async () => {
       try {
@@ -37,16 +39,18 @@ function Categories() {
   }, [dispatch]);
 
   const sortByCategory = async (categoryId: any) => {
-    setIsLoading(true)
-    await dispatch(fetchCustomCategories(categoryId))
-    setIsLoading(false)
-  }
+    setCategoryView(true);
+    setIsLoading(true);
+    await dispatch(fetchCustomCategories(categoryId));
+    setIsLoading(false);
+  };
 
   const sortByBrand = async (brandId: any) => {
-    setIsLoading(true)
-    await dispatch(fetchCustomBrands(brandId))
-    setIsLoading(false)
-  }
+    setCategoryView(false);
+    setIsLoading(true);
+    await dispatch(fetchCustomBrands(brandId));
+    setIsLoading(false);
+  };
 
   return (
     <div>
@@ -55,7 +59,7 @@ function Categories() {
         <div className="container-fluid">
           <div className="container-fixed my-4">
             <div className="row">
-              <div className="col-lg-3 col-md-4">
+              <div className="col-lg-3 col-md-4 col-sm-6">
                 <div>
                   <h4
                     className="mb-1 pb-1"
@@ -63,21 +67,31 @@ function Categories() {
                   >
                     All Categories
                   </h4>
-                  <div className="px-1">
+                  <div className="px-1 text-capitalize">
                     {categories &&
                       categories.map((category) => (
-                        <div
+                        <ul
                           key={category._id}
                           className="d-flex align-items-center"
                         >
-                          <label onClick={() => sortByCategory(category._id)} htmlFor="categoryType">
-                            {category.name}
-                          </label>
-                        </div>
+                          {singleCollection && (
+                            <li
+                              className={`item-link ${
+                                category._id ===
+                                  singleCollection[0].categoryId && categoryView
+                                  ? "active"
+                                  : ""
+                              }`}
+                              onClick={() => sortByCategory(category._id)}
+                            >
+                              {category.name}
+                            </li>
+                          )}
+                        </ul>
                       ))}
                   </div>
                 </div>
-                <div>
+                {/* <div>
                   <h4
                     className="mb-1 pb-1"
                     style={{ borderBottom: "1px solid #c4cad0" }}
@@ -91,7 +105,7 @@ function Categories() {
                     <li>$100 to $200</li>
                     <li>$200 & above</li>
                   </ul>
-                </div>
+                </div> */}
                 <div>
                   <h4
                     className="mb-1 pb-1"
@@ -99,26 +113,39 @@ function Categories() {
                   >
                     All Brands
                   </h4>
-                  <div className="px-1">
+                  <div className="px-1 text-capitalize">
                     {brands &&
                       brands.map((brand) => (
-                        <div
+                        <ul
                           key={brand._id}
                           className="d-flex align-items-center"
                         >
-                          <label onClick={() => sortByBrand(brand._id)} htmlFor="brandType">
-                            {brand.name}
-                          </label>
-                        </div>
+                          {singleCollection && (
+                            <li
+                              className={`item-link ${
+                                brand._id ===
+                                  singleCollection[0].brandId && !categoryView
+                                  ? "active"
+                                  : ""
+                              }`}
+                              onClick={() => sortByBrand(brand._id)}
+                            >
+                              {brand.name}
+                            </li>
+                          )}
+                        </ul>
                       ))}
                   </div>
                 </div>
               </div>
-              <div className="col-lg-9 col-md-8">
+              <div className="col-lg-9 col-md-8 col-sm-6">
                 <div className="row">
                   {singleCollection ? (
                     singleCollection?.map((product) => (
-                      <div key={product._id} className="col-lg-4 col-md-6">
+                      <div
+                        key={product._id}
+                        className="col-lg-4 col-md-6 d-flex-center"
+                      >
                         <ProductCard product={product} />
                       </div>
                     ))

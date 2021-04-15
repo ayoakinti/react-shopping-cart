@@ -19,18 +19,20 @@ function ProductAdditionalInfo({ singleProduct }: ISingleProductProps) {
     
       const Reviews = () => (
         <div>
-          {singleProduct &&
+          {singleProduct && singleProduct.reviews.length > 0 ?
             singleProduct.reviews.map((review: any) => (
               <div key={review._id}>
                 <h4>
                   {review.user.name.firstName} {review.user.name.lastName}
                 </h4>
-                <p>{review.createdAt}</p>
-                <p>{review.rating}</p>
-                <p>{review.remark}</p>
-                <p>{review.note}</p>
+                {/* <p>{review.created_at}</p> */}
+                {/* <p>{review.rating}</p> */}
+                <p className='mt-1 mb-0'>{review.remark}</p>
+                <p className='mt-1 mb-0'>{review.note}</p>
               </div>
-            ))}
+            )): (
+              <div>No reviews for this product yet</div>
+            )}
         </div>
       );
     

@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllProducts } from "../../actions/products";
 import { AppState } from "../../reducers/rootReducer";
 import { ProductState } from "../../reducers/modules/productReducer";
-// import ProductItem from "../../components/redundant/ProductItem";
 import Loader from "../../components/Loader";
+import ProductCard from "../../components/ProductCard";
 
 function Products() {
   const dispatch = useDispatch();
@@ -35,8 +35,8 @@ function Products() {
           <div className="row">
             {products &&
               products.map((product) => (
-                <div key={product._id} className="col-lg-3 col-xl-2 col-md-4">
-                  {/* <ProductItem product={product} /> */}
+                <div key={product._id} className="col-lg-2 col-md-3 col-sm-6 d-flex-center">
+                  <ProductCard product={product} />
                 </div>
               ))}
           </div>

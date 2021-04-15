@@ -47,6 +47,7 @@ function Login() {
     setLoading(true);
     try {
       await dispatch(login(loginInput));
+      history.push('/cart');
       setLoading(false);
     } catch (error) {
       setMessage(error.response.data.message);

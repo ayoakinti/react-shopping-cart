@@ -6,9 +6,20 @@ import {
 import { useState } from "react";
 import logo from "../assets/images/Fixxo..svg";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { AppState } from "../reducers/rootReducer";
+import { CartState, ICart } from "../reducers/modules/cartReducer";
 
-function Header({ openSideMenuContainer }: any) {
+function Header() {
   const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
+  const { cart } = useSelector<AppState, CartState>(state => state.cart);
+
+  const totalCartAmount = (items: ICart[]) => {
+    return items.reduce(
+      (accumulator: number, item) => accumulator + item.quantity,
+      0
+    );
+  };
 
   return (
     <div className="">
@@ -36,12 +47,6 @@ function Header({ openSideMenuContainer }: any) {
                 <li onClick={() => setOpenSideMenu(false)}>
                   <NavLink to="/categories">Categories</NavLink>
                 </li>
-                {/* <li onClick={() => setOpenSideMenu(false)}>
-                  <NavLink to="/brands">Brands</NavLink>
-                </li> */}
-                {/* <li onClick={() => setOpenSideMenu(false)}>
-                  <NavLink to="/products/product">Products</NavLink>
-                </li> */}
               </ul>
             </nav>
           </div>
@@ -50,14 +55,9 @@ function Header({ openSideMenuContainer }: any) {
               <li>
                 <NavLink to="/login">Login</NavLink>
               </li>
-              {/* <li className="nav-icons">
-                <FontAwesomeIcon icon={faSearch} />
-              </li>
-              <li className="nav-icons">
-                <FontAwesomeIcon icon={faHeart} />
-              </li> */}
               <li className="nav-icons">
                 <NavLink to='/cart'><FontAwesomeIcon icon={faCartArrowDown} /></NavLink>
+                <div className="cart-notification">{totalCartAmount(cart)}</div>
               </li>
             </ul>
           </nav>

@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomCategories } from "../../actions/categories";
 import { CategoryState } from "../../reducers/modules/categoryReducer";
 import { AppState } from "../../reducers/rootReducer";
-// import ProductItem from "../../components/redundant/ProductItem";
 import { useParams } from "react-router";
 import Loader from "../../components/Loader";
+import ProductCard from "../../components/ProductCard";
 
 function CategoryProducts() {
   const { singleCollection } = useSelector<AppState, CategoryState>(
@@ -16,19 +16,19 @@ function CategoryProducts() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const { category }: any = useParams();
+  const { categoryId }: any = useParams();
 
   useEffect(() => {
     const fetchAPIs = async () => {
       try {
-        await dispatch(fetchCustomCategories(category));
+        await dispatch(fetchCustomCategories(categoryId));
         setIsLoading(false);
       } catch (error) {
         console.error(error.response.data.message);
       }
     };
     fetchAPIs();
-  }, [category, dispatch]);
+  }, [categoryId, dispatch]);
 
   return (
     <div>
@@ -38,10 +38,8 @@ function CategoryProducts() {
           <div className="row">
             {singleCollection &&
               singleCollection.map((product) => (
-                <div key={product._id} className="col-lg-3 col-md-6">
-                  <div className="card">
-                    {/* <ProductItem product={product} /> */}
-                  </div>
+                <div key={product._id} className="col-md-4 col-lg-2 col-sm-6 d-flex-center">
+                  <ProductCard product={product} />
                 </div>
               ))}
           </div>
