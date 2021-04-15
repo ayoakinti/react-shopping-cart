@@ -1,8 +1,23 @@
 import { IAction, IProduct } from "./productReducer";
 import * as actionTypes from "../../actions/types";
 
+export type ICart = {
+  _id: string;
+  color: string;
+  productId: string;
+  size: string;
+  quantity: number;
+  image: string;
+  sizeObject: {
+    size: string;
+    price: number;
+    quantity: number;
+  };
+  name: string;
+};
+
 export type CartState = {
-  cart: IProduct[];
+  cart: ICart[];
 };
 
 const initialState: CartState = {
@@ -14,36 +29,21 @@ const CartReducer = (
   action: IAction
 ): CartState => {
   switch (action.type) {
-    case actionTypes.ADD_TO_CART_SUCCESS:
-      let addedProductIndex = state.cart.findIndex(function (product) {
-        return product._id === action.payload._id;
-      });
-      if (addedProductIndex !== -1) {
-        state.cart[addedProductIndex].amount++;
-        return {
-          ...state,
-        };
-      }
+    case actionTypes.FETCH_CART_SUCCESS:
       return {
         ...state,
-        cart: [...state.cart, { ...action.payload, amount: 1 }],
+        cart: action.payload.cart,
+      };
+    case actionTypes.ADD_TO_CART_SUCCESS:
+      return {
+        ...state,
+        cart: action.payload.cart,
       };
     case actionTypes.REMOVE_FROM_CART_SUCCESS:
-      let removedProductIndex = state.cart.findIndex(function (product) {
-        return product._id === action.payload._id;
-      });
-      if (state.cart[removedProductIndex].amount > 1) {
-        state.cart[removedProductIndex].amount--;
-        return {
-          ...state,
-        };
-      }
-      state.cart.splice(removedProductIndex, 1);
       return {
         ...state,
+        cart: action.payload.cart,
       };
-    case actionTypes.EMPTY_CART_SUCCESS:
-      return initialState;
     case actionTypes.LOGOUT_SUCCESS:
       return initialState;
   }

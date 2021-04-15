@@ -1,7 +1,7 @@
 import { IAction, IProduct } from "./productReducer";
 import * as actionTypes from "../../actions/types";
 
-type ICategory = {
+export type ICategory = {
   _id: string;
   name: string;
 };
@@ -26,25 +26,25 @@ const CategoryReducer = (
     case actionTypes.FETCH_ALL_CATEGORIES_SUCCESS:
       return {
         ...state,
-        categories: action.payload,
+        categories: action.payload.categories,
       };
 
     case actionTypes.FETCH_ALL_BRANDS_SUCCESS:
       return {
         ...state,
-        brands: action.payload,
+        brands: action.payload.brands,
       };
 
     case actionTypes.FETCH_CUSTOM_CATEGORY_SUCCESS:
       return {
         ...state,
-        singleCollection: action.payload,
+        singleCollection: action.payload.products,
       };
 
     case actionTypes.FETCH_CUSTOM_BRAND_SUCCESS:
       return {
         ...state,
-        singleCollection: action.payload,
+        singleCollection: action.payload.products,
       };
     case actionTypes.LOGOUT_SUCCESS:
       return initialState;

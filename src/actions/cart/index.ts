@@ -1,29 +1,44 @@
+import { IRemoveFromCart } from './../../services/cart.service';
 import * as actionTypes from "../types";
 
-import { IAction, IProduct } from "../../reducers/modules/productReducer";
+import { IAction } from "../../reducers/modules/productReducer";
 import { DispatchType } from "../products";
+import CartService, { IAddToCart } from "../../services/cart.service";
 
-export const addToCart = (product: IProduct) => async (dispatch: DispatchType) => {
+export const fetchCart = () => async (dispatch: DispatchType) => {
+  const data = await CartService.fetchCart();
+  const action: IAction = {
+    type: actionTypes.FETCH_CART_SUCCESS,
+    payload: {
+      cart: data.cart
+    },
+  };
+  dispatch(action);
+  return data;
+};
+
+export const addToCart = (product: IAddToCart) => async (dispatch: DispatchType) => {
+  const data = await CartService.addToCart(product);
   const action: IAction = {
     type: actionTypes.ADD_TO_CART_SUCCESS,
-    payload: product,
-  };
-  dispatch(action);
-  return product;
-};
+    payload: {
+      cart: data.cart
+    }
+  }
 
-export const removeFromCart = (product: IProduct) => async (dispatch: DispatchType) => {
+  dispatch(action);
+  return data;
+}
+
+export const removeFromCart = (product: IRemoveFromCart) => async (dispatch: DispatchType) => {
+  const data = await CartService.removeFromCart(product);
   const action: IAction = {
     type: actionTypes.REMOVE_FROM_CART_SUCCESS,
-    payload: product,
-  };
-  dispatch(action);
-  return product;
-};
+    payload: {
+      cart: data.cart
+    }
+  }
 
-export const emptyCart = () => async (dispatch: DispatchType) => {
-  const action: IAction = {
-    type: actionTypes.EMPTY_CART_SUCCESS,
-  };
   dispatch(action);
-};
+  return data;
+}

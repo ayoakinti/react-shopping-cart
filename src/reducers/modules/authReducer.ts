@@ -1,8 +1,10 @@
 import * as actionTypes from "../../actions/types";
 
 export type IUser = {
-  firstName: string;
-  lastName: string;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
   email: string;
 };
 

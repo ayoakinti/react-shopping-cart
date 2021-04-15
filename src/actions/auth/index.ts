@@ -1,10 +1,6 @@
+import { LoginInput, RegisterInput } from './../../services/auth.service';
 import * as actionTypes from "../types";
 import AuthService from "../../services/auth.service";
-
-interface LoginInput {
-  email: string;
-  password: string;
-}
 
 type AuthAction = {
   type: string;
@@ -25,10 +21,26 @@ export const login = (loginInput: LoginInput) => async (
   const action: AuthAction = {
     type: actionTypes.LOGIN_SUCCESS,
     payload: {
-      user: data.user,
-      token: data.token,
+      user: data.buyer
     },
   };
+  // localStorage.setItem('token', data.token);
+  // console.log(localStorage.getItem('token'));
+  dispatch(action);
+  return data;
+};
+
+export const register = (registerInput: RegisterInput) => async (
+  dispatch: DispatchType
+) => {
+  const data = await AuthService.register(registerInput);
+  const action: AuthAction = {
+    type: actionTypes.REGISTER_SUCCESS,
+    payload: {
+      user: data.buyer
+    },
+  };
+  localStorage.setItem('token', data.token);
   dispatch(action);
   return data;
 };

@@ -10,10 +10,10 @@ import {
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import SideMenu from "./components/SideMenu";
-import Products from "./views/products/Products";
+// import Products from "./views/products/Products";
 import ViewProduct from "./views/products/ViewProduct";
 import Categories from "./views/categories/Categories";
-import Brands from "./views/brands/Brands";
+// import Brands from "./views/brands/Brands";
 import CategoryProducts from "./views/categories/CategoryProducts";
 import Settings from "./views/settings/Settings";
 import Cart from "./views/cart/Cart";
@@ -71,13 +71,13 @@ function App() {
           <ViewProduct />
         </Route>
 
-        <Route path="/products">
+        {/* <Route path="/products">
           <Products />
-        </Route>
+        </Route> */}
 
-        <Route path="/categories/:category">
+        {/* <Route path="/categories/:category">
           <CategoryProducts />
-        </Route>
+        </Route> */}
         <Route path="/categories">
           <Categories />
         </Route>
@@ -87,9 +87,9 @@ function App() {
         {/* <Route path="/brands">
           <Brands />
         </Route> */}
-        <Route path="/settings">
+        {/* <Route path="/settings">
           <Settings />
-        </Route>
+        </Route> */}
       </Switch>
       <Footer />
     </Router>

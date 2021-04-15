@@ -3,12 +3,26 @@ import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IProduct } from "../reducers/modules/productReducer";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../actions/cart";
 
 type ProductCardProps = {
   product: IProduct;
 };
 
 function ProductCard({ product }: ProductCardProps) {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = async () => {
+    await dispatch(
+      addToCart({
+        productId: product._id,
+        color: product.priceList[0].color,
+        size: product.priceList[0].sizes[0].size,
+        quantity: 1,
+      })
+    );
+  };
   const [showProductOptions, setShowProductOptions] = useState<boolean>(false);
 
   return (
@@ -34,7 +48,7 @@ function ProductCard({ product }: ProductCardProps) {
               {/* <li className="nav-icons">
                 <FontAwesomeIcon icon={faHeart} />
               </li> */}
-              <li className="nav-icons">
+              <li className="nav-icons" onClick={handleAddToCart}>
                 <FontAwesomeIcon icon={faCartArrowDown} />
               </li>
             </ul>

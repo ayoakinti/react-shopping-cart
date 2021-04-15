@@ -1,6 +1,7 @@
 import { PaystackButton } from "react-paystack";
 import { useDispatch, useSelector } from "react-redux";
-import { emptyCart } from "../actions/cart";
+// import { emptyCart } from "../actions/cart";
+import { AuthState } from "../reducers/modules/authReducer";
 import { AppState } from "../reducers/rootReducer";
 require("dotenv").config();
 
@@ -19,31 +20,21 @@ const PaystackGateway = ({ amount }: IPaystackProps) => {
     publicKey: string;
   };
 
-  interface IAuth {
-    user: IUser;
-  }
-
-  interface IUser {
-    firstName: string;
-    lastName: string;
-    email: string;
-  }
-
-  const { user } = useSelector<AppState, IAuth>((state) => state.auth);
+  const { user } = useSelector<AppState, AuthState>((state) => state.auth);
 
   const config: IPayStackConfig = {
     // reference: new Date().getTime(),
     reference: `${Math.floor((Math.random() * 1000000000) + 1)}`,
-    email: user.email,
+    email: user?.email as string,
     amount: amount*100,
     // Use your paystack key here
     publicKey: process.env.REACT_APP_PAYSTACK_KEY as string,
   };
 
-  const handlePaystackSuccessAction = (reference: string) => {
-    // Implementation for whatever you want to do with reference and after success call.
-    dispatch(emptyCart())
-  };
+  // const handlePaystackSuccessAction = (reference: string) => {
+  //   // Implementation for whatever you want to do with reference and after success call.
+  //   dispatch(emptyCart())
+  // };
 
   // you can call this function anything
   const handlePaystackCloseAction = () => {
@@ -55,7 +46,7 @@ const PaystackGateway = ({ amount }: IPaystackProps) => {
   const componentProps = {
       ...config,
       text: 'Make Payments',
-      onSuccess: (reference: string) => handlePaystackSuccessAction(reference),
+      // onSuccess: (reference: string) => handlePaystackSuccessAction(reference),
       onClose: handlePaystackCloseAction,
   };
 

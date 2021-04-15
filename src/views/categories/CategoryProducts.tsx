@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCustomCategories } from "../../actions/categories";
 import { CategoryState } from "../../reducers/modules/categoryReducer";
 import { AppState } from "../../reducers/rootReducer";
-import ProductItem from "../../components/ProductItem";
+// import ProductItem from "../../components/redundant/ProductItem";
 import { useParams } from "react-router";
 import Loader from "../../components/Loader";
 
@@ -40,7 +40,7 @@ function CategoryProducts() {
               singleCollection.map((product) => (
                 <div key={product._id} className="col-lg-3 col-md-6">
                   <div className="card">
-                    <ProductItem product={product} />
+                    {/* <ProductItem product={product} /> */}
                   </div>
                 </div>
               ))}

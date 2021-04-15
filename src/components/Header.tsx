@@ -1,36 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
-  faSearch,
-  faHeart,
   faCartArrowDown,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import Cart from "./Cart";
-// import { CartState } from "../reducers/modules/cartReducer";
-// import { AppState } from "../reducers/rootReducer";
-// import { useSelector } from "react-redux";
-// import { IProduct } from "../reducers/modules/productReducer";
 import logo from "../assets/images/Fixxo..svg";
 import { NavLink } from "react-router-dom";
-// import NavBar from "./NavBar";
 
 function Header({ openSideMenuContainer }: any) {
   const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
-  // const { cart } = useSelector<AppState, CartState>((state) => state.cart);
-
-  // const totalCartAmount = (items: IProduct[]) => {
-  //   return items.reduce(
-  //     (accumulator: number, item) => accumulator + item.amount,
-  //     0
-  //   );
-  // };
-
-  const [cartOpen, setCartOpen] = useState<boolean>(false);
-
-  // const toggleCart = () => {
-  //   setCartOpen(!cartOpen);
-  // };
 
   return (
     <div className="">
@@ -44,7 +22,6 @@ function Header({ openSideMenuContainer }: any) {
               onClick={() => setOpenSideMenu(true)}
             />
             <img src={logo} alt="logo" />
-            {/* <NavBar /> */}
             <div
               className={`mobile-sidemenu-mask ${openSideMenu ? "show" : ""}`}
               onClick={() => setOpenSideMenu(false)}
@@ -86,15 +63,6 @@ function Header({ openSideMenuContainer }: any) {
           </nav>
         </div>
       </header>
-      {cartOpen && (
-        <div
-          onClick={() => setCartOpen(false)}
-          className="cart-container-mask"
-        ></div>
-      )}
-      <div className={`cart-container ${cartOpen ? "show" : ""}`}>
-        <Cart />
-      </div>
     </div>
   );
 }

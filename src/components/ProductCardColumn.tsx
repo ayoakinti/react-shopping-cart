@@ -1,10 +1,14 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
-import bag from "../assets/images/bag.png";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { IProduct } from "../reducers/modules/productReducer";
 
-function ProductCardColumn() {
+type ProductCardProps = {
+  product: IProduct;
+};
+
+function ProductCardColumn({ product }: ProductCardProps) {
   const [showProductOptions, setShowProductOptions] = useState<boolean>(false);
   return (
     <div className="d-flex align-items-center mb-1">
@@ -13,7 +17,12 @@ function ProductCardColumn() {
         onMouseEnter={() => setShowProductOptions(true)}
         onMouseLeave={() => setShowProductOptions(false)}
       >
-        <img src={bag} alt="bag" width="100%" height="100%" />
+        <img
+          src={product.image}
+          alt="productImage"
+          width="100%"
+          height="100%"
+        />
         <div
           className={`product-image-options ${
             showProductOptions ? "show" : ""
@@ -32,11 +41,11 @@ function ProductCardColumn() {
           <Link to='/products/product' className="w-100 btn btn-primary">Quick view</Link>
         </div>
       </div>
-      <div className="px-1">
-        <p className="m-0">Category</p>
-        <h5 className="mt-1 mb-0">Modern Black House</h5>
-        <p className="mt-1 mb-0">Ratings</p>
-        <h5 className="mt-1 mb-0">$35.00</h5>
+      <div className="px-1 w-50">
+        {/* <p className="m-0">Category</p> */}
+        <h5 className="mt-1 mb-0">{product.name}</h5>
+        {/* <p className="mt-1 mb-0">Ratings</p> */}
+        <h5 className="mt-1 mb-0">${product.price}</h5>
       </div>
     </div>
   );

@@ -25,13 +25,13 @@ function Categories() {
   useEffect(() => {
     const fetchAPIs = async () => {
       try {
-        await dispatch(fetchAllCategories());
+        const res: any = await dispatch(fetchAllCategories());
         await dispatch(fetchAllBrands());
-        await dispatch(fetchCustomCategories(categories[0]._id));
-        setIsLoading(false);
+        await dispatch(fetchCustomCategories(res.categories[0]._id));
       } catch (error) {
         console.error(error.response.data.message);
       }
+      setIsLoading(false);
     };
     fetchAPIs();
   }, [dispatch]);

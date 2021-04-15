@@ -18,7 +18,7 @@ export interface IProduct {
   priceList: IpriceList[];
 }
 
-type ISingleProduct = {
+export type ISingleProduct = {
   product: IProduct,
   category: string;
   brand: string;

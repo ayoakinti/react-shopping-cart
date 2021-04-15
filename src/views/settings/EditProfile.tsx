@@ -1,19 +1,11 @@
 import { useSelector } from "react-redux";
+import { AuthState } from "../../reducers/modules/authReducer";
 import { AppState } from "../../reducers/rootReducer";
 
 function EditProfile() {
 
-  interface IAuth {
-    user: IUser;
-  }
 
-  interface IUser {
-    firstName: string;
-    lastName: string;
-    email: string;
-  }
-
-  const { user } = useSelector<AppState, IAuth>((state) => state.auth);
+  const { user } = useSelector<AppState, AuthState>((state) => state.auth);
 
   return (
     <div className="">
@@ -21,19 +13,19 @@ function EditProfile() {
         <div className="row">
           <div className="col-md-6">
             <div className="form-group mb-3">
-              <input type="text" value={user.firstName} className="form-control" readOnly></input>
+              <input type="text" value={user?.name.firstName} className="form-control" readOnly></input>
             </div>
           </div>
           <div className="col-md-6">
             <div className="form-group mb-3">
-              <input type="text" value={user.lastName} className="form-control" readOnly></input>
+              <input type="text" value={user?.name.firstName} className="form-control" readOnly></input>
             </div>
           </div>
         </div>
         <div className="row">
           <div className="col-md-6">
             <div className="form-group mb-4">
-              <input type="email" value={user.email} disabled className="form-control"></input>
+              <input type="email" value={user?.email} disabled className="form-control"></input>
             </div>
           </div>
         </div>

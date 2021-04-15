@@ -20,8 +20,8 @@ function Login() {
   }
 
   const [loginInput, setLoginInput] = useState<LoginInput>({
-    email: "reactecommerce@gmail.com",
-    password: "ecommerce",
+    email: "",
+    password: "",
   });
 
   const handleEmailChange = (e: any) => {
@@ -47,9 +47,9 @@ function Login() {
     setLoading(true);
     try {
       await dispatch(login(loginInput));
-      history.push("/");
+      setLoading(false);
     } catch (error) {
-      setMessage('Invalid email/password. \nKindly login with: \nemail: reactecommerce@gmail.com \npassword: ecommerce');
+      setMessage(error.response.data.message);
       setLoading(false);
     }
   };
