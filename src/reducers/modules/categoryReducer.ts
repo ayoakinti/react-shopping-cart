@@ -47,8 +47,8 @@ const CategoryReducer = (
         ...state,
         singleCollection: action.payload.products,
       };
-    case actionTypes.LOGOUT_SUCCESS:
-      return initialState;
+    // case actionTypes.LOGOUT_SUCCESS:
+    //   return initialState;
   }
   return state;
 };

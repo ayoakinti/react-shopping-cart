@@ -1,9 +1,5 @@
 import "./assets/scss/style.scss";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,48 +13,50 @@ import Home from "./views/Home";
 import Login from "./views/auth/Login";
 import ForgotPassword from "./views/auth/ForgotPassword";
 import Register from "./views/auth/Register";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
-
   return (
     <Router>
-      <Header />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/forgotpassword">
-          <ForgotPassword />
-        </Route>
+        <Header />
+        <ScrollToTop>
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/forgotpassword">
+              <ForgotPassword />
+            </Route>
 
-        <Route path="/products/:productId">
-          <ViewProduct />
-        </Route>
+            <Route path="/products/:productId">
+              <ViewProduct />
+            </Route>
 
-        <Route path="/products">
-          <Products />
-        </Route>
+            <Route path="/products">
+              <Products />
+            </Route>
 
-        <Route path="/category/:categoryId">
-          <CategoryProducts />
-        </Route>
-        <Route path="/categories">
-          <Categories />
-        </Route>
-        <Route path="/cart">
-          <Cart />
-        </Route>
-        {/* <Route path="/settings">
+            <Route path="/category/:categoryId">
+              <CategoryProducts />
+            </Route>
+            <Route path="/categories">
+              <Categories />
+            </Route>
+            <Route path="/cart">
+              <Cart />
+            </Route>
+            {/* <Route path="/settings">
           <Settings />
         </Route> */}
-      </Switch>
-      <Footer />
+          </Switch>
+        </ScrollToTop>
+        <Footer />
     </Router>
   );
 }

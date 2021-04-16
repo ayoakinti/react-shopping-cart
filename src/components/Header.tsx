@@ -1,18 +1,22 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBars,
-  faCartArrowDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import logo from "../assets/images/Fixxo..svg";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../reducers/rootReducer";
 import { CartState, ICart } from "../reducers/modules/cartReducer";
+import { AuthState } from "../reducers/modules/authReducer";
+import { logout } from "../actions/auth";
 
 function Header() {
   const [openSideMenu, setOpenSideMenu] = useState<boolean>(false);
-  const { cart } = useSelector<AppState, CartState>(state => state.cart);
+  const { cart } = useSelector<AppState, CartState>((state) => state.cart);
+  const { user, token } = useSelector<AppState, AuthState>(
+    (state) => state.auth
+  );
+
+  const dispatch = useDispatch()
 
   const totalCartAmount = (items: ICart[]) => {
     return items.reduce(
@@ -20,6 +24,16 @@ function Header() {
       0
     );
   };
+
+  const HandleLogout = () => {
+    dispatch(logout())
+  };
+
+  // const totalCartLocalStorage = () => {
+  //   let cartInput: any = localStorage.getItem("cartInput");
+  //   cartInput = JSON.parse(cartInput);
+  //   return cartInput.length;
+  // };
 
   return (
     <div className="">
@@ -47,17 +61,31 @@ function Header() {
                 <li onClick={() => setOpenSideMenu(false)}>
                   <NavLink to="/categories">Categories</NavLink>
                 </li>
+                {token && <li className='nav-link' onClick={HandleLogout}>Logout</li>}
               </ul>
             </nav>
           </div>
           <nav>
             <ul className="d-flex align-items-center">
-              <li>
-                <NavLink to="/login">Login</NavLink>
-              </li>
+              {token ? (
+                <li>Hi, {user?.name.firstName}</li>
+              ) : (
+                <li>
+                  <NavLink to="/login">Login</NavLink>
+                </li>
+              )}
               <li className="nav-icons">
-                <NavLink to='/cart'><FontAwesomeIcon icon={faCartArrowDown} /></NavLink>
+                <NavLink to="/cart">
+                  <FontAwesomeIcon icon={faCartArrowDown} />
+                </NavLink>
+                {/* {token ? ( */}
                 <div className="cart-notification">{totalCartAmount(cart)}</div>
+                {/* ) 
+                : (
+                  <div className="cart-notification">
+                    {totalCartLocalStorage()}
+                  </div>
+                )} */}
               </li>
             </ul>
           </nav>

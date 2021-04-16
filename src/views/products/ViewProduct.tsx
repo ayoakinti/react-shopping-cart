@@ -3,7 +3,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { addToCart } from "../../actions/cart";
+import { addToCart, addToTokenlessCart } from "../../actions/cart";
 import { fetchCustomCategories } from "../../actions/categories";
 import { fetchSingleProduct } from "../../actions/products";
 import Loader from "../../components/Loader";
@@ -12,13 +12,16 @@ import ProductCard from "../../components/ProductCard";
 import { CategoryState } from "../../reducers/modules/categoryReducer";
 import { ProductState } from "../../reducers/modules/productReducer";
 import { AppState } from "../../reducers/rootReducer";
-// import ProductCard from "../../components/ProductCard";
+import { AuthState } from "../../reducers/modules/authReducer";
+import { IAddToCart } from "../../services/cart.service";
 
 function ViewProduct() {
   const [message, setMessage] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(1);
   const [color, setColor] = useState<string>("");
   const [size, setSize] = useState<string>("");
+
+  const { token } = useSelector<AppState, AuthState>((state) => state.auth);
 
   const { singleCollection } = useSelector<AppState, CategoryState>(
     (state) => state.category
@@ -30,14 +33,118 @@ function ViewProduct() {
 
   const handleAddToCart = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    await dispatch(
-      addToCart({
-        productId: singleProduct?.product._id as string,
-        color,
-        size,
-        quantity,
-      })
-    );
+    if (token) {
+      await dispatch(
+        addToCart({
+          productId: singleProduct?.product._id as string,
+          color,
+          size,
+          quantity,
+        })
+      );
+    } else {
+      if (!localStorage.getItem("cartInput")) {
+        let cartInput: IAddToCart[] = [];
+        cartInput.push({
+          productId: singleProduct?.product._id as string,
+          color,
+          size,
+          quantity,
+        });
+        let cartOutput: any = [];
+        const singleProductColorArray = singleProduct?.product.priceList.filter(
+          (item) => item.color === color
+        );
+
+        const singleProductSizeObject =
+          singleProductColorArray &&
+          singleProductColorArray[0].sizes.filter(
+            (item: { size: string }) => item.size === size
+          );
+
+        const image =
+          singleProductColorArray && singleProductColorArray[0].imageUrls[0];
+
+        cartOutput.push({
+          _id: singleProductSizeObject[0]._id,
+          color,
+          size,
+          productId,
+          quantity,
+          image,
+          name: singleProduct?.product.name,
+          sizeObject: singleProductSizeObject[0],
+        });
+        dispatch(addToTokenlessCart(cartOutput));
+
+        localStorage.setItem("cartInput", JSON.stringify(cartInput));
+        localStorage.setItem("cartOutput", JSON.stringify(cartOutput));
+      } else {
+        let cartInput: any = localStorage.getItem("cartInput");
+        cartInput = JSON.parse(cartInput);
+        const inputIndex = cartInput.findIndex(
+          (item: any) =>
+            item.productId === productId &&
+            item.color === color &&
+            item.size === size
+        );
+        if (inputIndex !== -1) {
+          cartInput[inputIndex].quantity =
+            cartInput[inputIndex].quantity + quantity;
+        } else {
+          cartInput.push({
+            productId: singleProduct?.product._id as string,
+            color,
+            size,
+            quantity,
+          });
+        }
+
+        let cartOutput: any = localStorage.getItem("cartOutput");
+        cartOutput = JSON.parse(cartOutput);
+
+        const index = cartOutput.findIndex(
+          (item: any) =>
+            item.productId === productId &&
+            item.color === color &&
+            item.size === size
+        );
+        if (index !== -1) {
+          cartOutput[index].quantity = cartOutput[index].quantity + quantity;
+        } else {
+          const singleProductColorArray = singleProduct?.product.priceList.filter(
+            (item) => item.color === color
+          );
+
+          const singleProductSizeObject =
+            singleProductColorArray &&
+            singleProductColorArray[0].sizes.filter(
+              (item: { size: string }) => item.size === size
+            );
+
+          const image =
+            singleProductColorArray && singleProductColorArray[0].imageUrls[0];
+
+          const output = {
+            _id: singleProductSizeObject[0]._id,
+            color,
+            size,
+            productId,
+            quantity,
+            image,
+            name: singleProduct?.product.name,
+            sizeObject: singleProductSizeObject[0],
+          };
+
+          cartOutput.push(output);
+        }
+
+        dispatch(addToTokenlessCart(cartOutput));
+
+        localStorage.setItem("cartInput", JSON.stringify(cartInput));
+        localStorage.setItem("cartOutput", JSON.stringify(cartOutput));
+      }
+    }
     setMessage("Item added to Cart successfully");
     setTimeout(() => {
       setMessage("");
@@ -61,12 +168,10 @@ function ViewProduct() {
 
   const handleSizeChange = (e: any) => {
     setSize(e.target.value);
-    // setCurrentPrice(getCurrentPrice());
   };
 
   const handleColorChange = (e: any) => {
     setColor(e.target.value);
-    // setCurrentPrice(getCurrentPrice());
   };
 
   const { productId }: any = useParams();

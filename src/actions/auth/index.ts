@@ -21,11 +21,10 @@ export const login = (loginInput: LoginInput) => async (
   const action: AuthAction = {
     type: actionTypes.LOGIN_SUCCESS,
     payload: {
-      user: data.buyer
+      user: data.buyer,
+      token: data.token
     },
   };
-  // localStorage.setItem('token', data.token);
-  // console.log(localStorage.getItem('token'));
   dispatch(action);
   return data;
 };
@@ -37,7 +36,8 @@ export const register = (registerInput: RegisterInput) => async (
   const action: AuthAction = {
     type: actionTypes.REGISTER_SUCCESS,
     payload: {
-      user: data.buyer
+      user: data.buyer,
+      token: data.token
     },
   };
   localStorage.setItem('token', data.token);

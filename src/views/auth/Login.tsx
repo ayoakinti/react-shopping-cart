@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux";
 import Loader from "../../components/Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { LoginInput } from "../../services/auth.service";
+import { addToCart } from "../../actions/cart";
 
 function Login() {
   const history = useHistory();
@@ -13,11 +15,6 @@ function Login() {
   const [message, setMessage] = useState<string>("");
 
   const dispatch = useDispatch();
-
-  interface LoginInput {
-    email: string;
-    password: string;
-  }
 
   const [loginInput, setLoginInput] = useState<LoginInput>({
     email: "",
@@ -47,8 +44,18 @@ function Login() {
     setLoading(true);
     try {
       await dispatch(login(loginInput));
-      history.push('/cart');
+      let cartInput: any = localStorage.getItem("cartInput");
+      if (cartInput && cartInput.length > 0) {
+        cartInput = JSON.parse(cartInput);
+        for (let i = 0; i < cartInput.length; i++) {
+          await dispatch(addToCart(cartInput[i]));
+        }
+        localStorage.removeItem("cartInput");
+        localStorage.removeItem("cartOutput");
+      }
       setLoading(false);
+
+      history.push("/cart");
     } catch (error) {
       setMessage(error.response.data.message);
       setLoading(false);

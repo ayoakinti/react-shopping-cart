@@ -1,24 +1,80 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { RegisterInput } from "../../services/auth.service";
+import { useDispatch } from "react-redux";
+import { register } from "../../actions/auth";
+import Loader from "../../components/Loader";
+import { addToCart } from "../../actions/cart";
 
 function Register() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
+
   const [message, setMessage] = useState<string>("");
+
+  const [registerInput, setRegisterInput] = useState<RegisterInput>({
+    name: {
+      firstName: "",
+      lastName: "",
+    },
+    email: "",
+    password: "",
+  });
+
+  const handleFirstNameChange = (e: any) => {
+    registerInput.name.firstName = e.target.value;
+  };
+
+  const handleLastNameChange = (e: any) => {
+    registerInput.name.lastName = e.target.value;
+  };
+
+  const handleEmailChange = (e: any) => {
+    setRegisterInput({
+      ...registerInput,
+      email: e.target.value,
+    });
+  };
+
+  const handlePasswordChange = (e: any) => {
+    setRegisterInput({
+      ...registerInput,
+      password: e.target.value,
+    });
+  };
 
   const closeToast = () => {
     setMessage("");
   };
 
-  const handleRegister = (e: React.SyntheticEvent<EventTarget>) => {
+  const handleRegister = async (e: React.SyntheticEvent<EventTarget>) => {
     e.preventDefault();
-    setMessage(
-      "Cool! Now we have established that this works. \nKindly go back to the Login page to login."
-    );
+    setLoading(true);
+    try {
+      await dispatch(register(registerInput));
+      let cartInput: any = localStorage.getItem("cartInput");
+      if (cartInput && cartInput.length > 0) {
+        cartInput = JSON.parse(cartInput);
+        for (let i = 0; i < cartInput.length; i++){
+          await dispatch(addToCart(cartInput[i]));
+        }
+        localStorage.removeItem('cartInput')
+        localStorage.removeItem('cartOutput')
+      }
+      history.push("/cart");
+      setLoading(false);
+    } catch (error) {
+      setMessage(error.response.data.message);
+      setLoading(false);
+    }
   };
   return (
     <div className="auth-container">
+      {loading && <Loader />}
       {message && (
         <div className="toast bg-info">
           <div className="row align-items-center">
@@ -51,6 +107,7 @@ function Register() {
                         <input
                           type="text"
                           placeholder="First Name"
+                          onChange={handleFirstNameChange}
                           className="form-control"
                           required
                         />
@@ -61,6 +118,7 @@ function Register() {
                         <input
                           type="text"
                           placeholder="Last Name"
+                          onChange={handleLastNameChange}
                           className="form-control"
                           required
                         />
@@ -71,6 +129,7 @@ function Register() {
                     <input
                       type="email"
                       placeholder="Email"
+                      onChange={handleEmailChange}
                       className="form-control"
                       required
                     />
@@ -79,6 +138,7 @@ function Register() {
                     <input
                       type="password"
                       placeholder="******"
+                      onChange={handlePasswordChange}
                       className="form-control"
                       required
                     />

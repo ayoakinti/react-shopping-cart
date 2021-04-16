@@ -43,8 +43,8 @@ const DashboardReducer = (
         bestSellingProducts: action.payload.bestSellingProducts,
         featuredCategories: action.payload.featuredCategories,
       };
-    case actionTypes.LOGOUT_SUCCESS:
-      return initialState;
+    // case actionTypes.LOGOUT_SUCCESS:
+    //   return initialState;
   }
   return state;
 };

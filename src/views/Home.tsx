@@ -26,7 +26,7 @@ function Home() {
   useEffect(() => {
     const fetchAPIs = async () => {
       await dispatch(fetchDashboard());
-      setIsLoading(false)
+      setIsLoading(false);
     };
     fetchAPIs();
   }, [dispatch]);
@@ -75,7 +75,10 @@ function Home() {
                     Shop now
                   </Link>
                 </div>
-                <div className="col-sm-6 d-flex-center" style={{ height: "400px" }}>
+                <div
+                  className="col-sm-6 d-flex-center"
+                  style={{ height: "400px" }}
+                >
                   <img src={imageUrls?.clearanceSales} alt="clearanceImage" />
                 </div>
               </div>
@@ -88,7 +91,10 @@ function Home() {
                     Shop now
                   </Link>
                 </div>
-                <div className="col-sm-6 d-flex-center" style={{ height: "400px" }}>
+                <div
+                  className="col-sm-6 d-flex-center"
+                  style={{ height: "400px" }}
+                >
                   <img src={imageUrls?.newArrivals} alt="newArrivals" />
                 </div>
               </div>
@@ -100,7 +106,10 @@ function Home() {
               <div className="col-lg-8">
                 <div className="row">
                   {featuredProducts.map((product) => (
-                    <div key={product._id} className="col-md-3 col-sm-6 d-flex-center">
+                    <div
+                      key={product._id}
+                      className="col-md-3 col-sm-6 d-flex-center"
+                    >
                       <ProductCard product={product} />
                     </div>
                   ))}
@@ -109,28 +118,30 @@ function Home() {
             </div>
           </div>
           <div className="row mx-0 mb-8">
-            <div className="col-lg-6">
-              <div className="row align-items-center px-3 flex-column-sm bg-primary-100">
-                <div className="col-sm-6">
-                  <h3 className="py-2 text-capitalize">
-                    {featuredCategories.length > 0 &&
-                      featuredCategories[0].name}
-                  </h3>
-                  <Link
-                    to={`/category/${featuredCategories[0]._id}`}
-                    className="btn btn-secondary"
+            {featuredCategories.length > 0 && featuredCategories[0] && (
+              <div className="col-lg-6">
+                <div className="row align-items-center px-3 flex-column-sm bg-primary-100">
+                  <div className="col-sm-6">
+                    <h3 className="py-2 text-capitalize">
+                      {featuredCategories.length > 0 &&
+                        featuredCategories[0].name}
+                    </h3>
+                    <Link
+                      to={`/category/${featuredCategories[0]._id}`}
+                      className="btn btn-secondary"
+                    >
+                      Shop now
+                    </Link>
+                  </div>
+                  <div
+                    className="col-sm-6 d-flex-center"
+                    style={{ height: "400px" }}
                   >
-                    Shop now
-                  </Link>
-                </div>
-                <div
-                  className="col-sm-6 d-flex-center"
-                  style={{ height: "400px" }}
-                >
-                  <img src={featuredCategories[0].image} alt="category1" />
+                    <img src={featuredCategories[0].image} alt="category1" />
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
             {featuredCategories.length > 0 && featuredCategories[1] && (
               <div className="col-lg-6">
                 <div className="row align-items-center px-3 flex-column-sm bg-text-100">

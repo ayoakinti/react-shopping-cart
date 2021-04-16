@@ -58,8 +58,8 @@ const productReducer = (
         ...state,
         singleProduct: action.payload,
       };
-    case actionTypes.LOGOUT_SUCCESS:
-      return initialState;
+    // case actionTypes.LOGOUT_SUCCESS:
+    //   return initialState;
   }
   return state;
 };

@@ -39,7 +39,17 @@ const CartReducer = (
         ...state,
         cart: action.payload.cart,
       };
+    case actionTypes.ADD_TO_TOKENLESS_CART_SUCCESS:
+      return {
+        ...state,
+        cart: action.payload.cart,
+      };
     case actionTypes.REMOVE_FROM_CART_SUCCESS:
+      return {
+        ...state,
+        cart: action.payload.cart,
+      };
+    case actionTypes.REMOVE_FROM_TOKENLESS_CART_SUCCESS:
       return {
         ...state,
         cart: action.payload.cart,
