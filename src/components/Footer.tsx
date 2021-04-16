@@ -69,7 +69,12 @@ function Footer() {
                 </ul>
               </div>
               <div className="col-md-3">
-                <h4>My Profiles 😎</h4>
+                <h4>
+                  My Profiles{" "}
+                  <span role="img" aria-label="emoji cool">
+                    😎
+                  </span>
+                </h4>
                 <ul className="d-flex align-items-center">
                   <li>
                     <a
