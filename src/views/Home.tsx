@@ -26,9 +26,13 @@ function Home() {
   useEffect(() => {
     const fetchAPIs = async () => {
       await dispatch(fetchDashboard());
-      setIsLoading(false);
     };
-    fetchAPIs();
+    try {
+      fetchAPIs();
+    } catch (error) {
+      console.log(error.response.data.message)
+    }
+    setIsLoading(false);
   }, [dispatch]);
 
   return (
