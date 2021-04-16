@@ -347,6 +347,9 @@ nav ul {
 .btn-secondary {
   background-color: $secondary100;
   border: 1px solid $secondary100;
+  &:hover {
+    color: $primary100;
+  }
 }
 
 .sidemenu-icon {
