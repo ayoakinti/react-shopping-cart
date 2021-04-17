@@ -232,30 +232,30 @@ function ViewProduct() {
                 )}
                 <p>{singleProduct?.product.description}</p>
                 <div className="text-capitalize row">
-                  <div className="col-2">Category: </div>
-                  <div className="col-10">
+                  <div className="col-lg-2 col-sm-3">Category: </div>
+                  <div className="col-lg-10 col-sm-9">
                     <p>
                       <b>{singleProduct?.category}</b>
                     </p>
                   </div>
-                  <div className="col-2">Brand: </div>
-                  <div className="col-10">
+                  <div className="col-lg-2 col-sm-3">Brand: </div>
+                  <div className="col-lg-10 col-sm-9">
                     <p>
                       <b>{singleProduct?.brand}</b>
                     </p>
                   </div>
-                  <div className="col-2">Seller: </div>
-                  <div className="col-10">
+                  <div className="col-lg-2 col-sm-3">Seller: </div>
+                  <div className="col-lg-10 col-sm-9">
                     <p>
                       <b>{singleProduct?.seller}</b>
                     </p>
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className="col-2">
+                  <div className="col-2 col-xs-3">
                     <h4>Size</h4>
                   </div>
-                  <div className="col-10">
+                  <div className="col-10 col-xs-9">
                     <select
                       name="size"
                       id="size"
@@ -274,10 +274,10 @@ function ViewProduct() {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className="col-2">
+                  <div className="col-2 col-xs-3">
                     <h4>Color</h4>
                   </div>
-                  <div className="col-10">
+                  <div className="col-10 col-xs-9">
                     <select
                       name="color"
                       id="color"
@@ -294,10 +294,10 @@ function ViewProduct() {
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className="col-2">
+                  <div className="col-2 col-xs-3">
                     <h4>Qty</h4>
                   </div>
-                  <div className="col-10">
+                  <div className="col-10 col-xs-9">
                     <form
                       className="row mx-0 align-items-center"
                       onSubmit={handleAddToCart}

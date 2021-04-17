@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faCartArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import logo from "../assets/images/Fixxo..svg";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../reducers/rootReducer";
 import { CartState, ICart } from "../reducers/modules/cartReducer";
@@ -46,7 +46,7 @@ function Header() {
               className="mr-2 sidemenu-icon"
               onClick={() => setOpenSideMenu(true)}
             />
-            <img src={logo} alt="logo" />
+            <Link to="/"><img src={logo} alt="logo" /></Link>
             <div
               className={`mobile-sidemenu-mask ${openSideMenu ? "show" : ""}`}
               onClick={() => setOpenSideMenu(false)}
