@@ -144,7 +144,7 @@ function Categories() {
                     singleCollection?.map((product) => (
                       <div
                         key={product._id}
-                        className="col-lg-4 col-md-6 d-flex-center"
+                        className="col-lg-3 col-md-6 d-flex-center"
                       >
                         <ProductCard product={product} />
                       </div>

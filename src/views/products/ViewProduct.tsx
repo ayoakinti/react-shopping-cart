@@ -302,7 +302,7 @@ function ViewProduct() {
                       className="row mx-0 align-items-center"
                       onSubmit={handleAddToCart}
                     >
-                      <div className="mr-2 mb-1">
+                      <div className="mr-2 mb-1 d-flex align-items-center">
                         <button
                           type="button"
                           disabled={quantity <= 1}

@@ -188,7 +188,7 @@ function CartItem({ item }: ICartItemProps) {
                 >
                   -
                 </button>
-                <div className="cart-input">{item.quantity}</div>
+                <div className="cart-div">{item.quantity}</div>
                 <button className="cart-btn" onClick={handleAddToCart}>
                   +
                 </button>

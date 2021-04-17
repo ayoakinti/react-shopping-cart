@@ -5,9 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import { store, persistor } from "./store";
-
-
+// import ReactGA from 'react-ga';
 import { PersistGate } from "redux-persist/integration/react";
+// ReactGA.initialize('UA-tracking-id'); // add your tracking id here.
+// ReactGA.pageview(window.location.pathname + window.location.search);
+
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>

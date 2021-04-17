@@ -30,6 +30,7 @@ $success: #27ae60;
 $warning: #ff5c00;
 $danger: #eb5757;
 $info: #2f80ed;
+$footer: #c4cad0;
 
 body {
   font-size: 16px;
@@ -42,6 +43,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   color: $secondary100;
+  // color: $secondary100;
   background-color: $body;
 }
 
@@ -254,7 +256,7 @@ header {
 }
 
 footer {
-  background: $landing;
+  background: $footer;
   padding-top: 10px;
   // overflow: hidden;
 }
@@ -468,15 +470,21 @@ nav ul {
 .cart-btn {
   width: 40px;
   padding: 8px;
-  // border-radius: 5px;
+  height: 40px;
+  border-radius: 0;
+  font-size: 22px;
+  line-height: 22px;
+  cursor: pointer;
 }
 
+.cart-div,
 .cart-input {
   width: 60px;
+  height: 40px;
   padding: 8px;
   border: 1px solid #071e22;
   text-align: center;
-  // border-radius: 5px;
+  border-radius: 0;
 }
 
 .item-link {
